@@ -1,0 +1,40 @@
+#include<stdio.h>
+
+int main()
+{
+    int b[20],p[20],nb,np,i,j,worst;
+
+    printf("Enter number of blocks: ");
+    scanf("%d",&nb);
+
+    printf("Enter number of processes: ");
+    scanf("%d",&np);
+
+    for(i=0;i<nb;i++)
+        scanf("%d",&b[i]);
+
+    for(i=0;i<np;i++)
+        scanf("%d",&p[i]);
+
+    for(i=0;i<np;i++)
+    {
+        worst=-1;
+
+        for(j=0;j<nb;j++)
+        {
+            if(b[j]>=p[i])
+            {
+                if(worst==-1 || b[j]>b[worst])
+                    worst=j;
+            }
+        }
+
+        if(worst!=-1)
+        {
+            printf("Process %d allocated to Block %d\n",i+1,worst+1);
+            b[worst]-=p[i];
+        }
+        else
+            printf("Process %d not allocated\n",i+1);
+    }
+}

@@ -1,0 +1,29 @@
+#include<stdio.h>
+
+int main()
+{
+    int block[20],process[20];
+    int nb,np,i,j;
+
+    scanf("%d",&nb);
+    scanf("%d",&np);
+
+    for(i=0;i<nb;i++)
+        scanf("%d",&block[i]);
+
+    for(i=0;i<np;i++)
+        scanf("%d",&process[i]);
+
+    for(i=0;i<np;i++)
+    {
+        for(j=0;j<nb;j++)
+        {
+            if(block[j]>=process[i])
+            {
+                printf("Process %d -> Block %d\n",i+1,j+1);
+                block[j]-=process[i];
+                break;
+            }
+        }
+    }
+}

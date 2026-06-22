@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+struct Employee
+{
+    int empid;
+    char name[30];
+    float salary;
+};
+
+int main()
+{
+    FILE *fp;
+    struct Employee emp;
+    int n, i, record;
+
+    fp = fopen("employee.dat", "wb+");
+
+    printf("Enter number of employees: ");
+    scanf("%d", &n);
+
+    for(i = 0; i < n; i++)
+    {
+        printf("\nEmployee %d\n", i + 1);
+
+        printf("Enter ID: ");
+        scanf("%d", &emp.empid);
+
+        printf("Enter Name: ");
+        scanf("%s", emp.name);
+
+        printf("Enter Salary: ");
+        scanf("%f", &emp.salary);
+
+        fwrite(&emp, sizeof(emp), 1, fp);
+    }
+
+    printf("\nEnter record number to access: ");
+    scanf("%d", &record);
+
+    fseek(fp, (record - 1) * sizeof(emp), SEEK_SET);
+
+    fread(&emp, sizeof(emp), 1, fp);
+
+    printf("\nEmployee Details:\n");
+    printf("ID     : %d\n", emp.empid);
+    printf("Name   : %s\n", emp.name);
+    printf("Salary : %.2f\n", emp.salary);
+
+    fclose(fp);
+
+    return 0;
+}
